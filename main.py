@@ -11,12 +11,12 @@ app = FastAPI()
 
 #df = pd.read_csv(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\df.csv')
 
-df_endpoint1 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end1.parquet')
-df_endpoint2 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end2.parquet')
-df_endpoint3 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end3.parquet')
-df_endpoint4 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end4.parquet')
-df_endpoint5 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end5.parquet')
-df_endpoint6 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end6.parquet')
+
+
+
+
+
+
 df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\reco.parquet')
 #df_endpoint1 = df[['title', 'release_month']]
 #df_endpoint2 = df[['title', 'release_day']]
@@ -28,6 +28,7 @@ df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individua
 
 @app.get("/cantidad_filmaciones_mes/{mes}")
 def cantidad_filmaciones_mes(mes:str):
+    df_endpoint1 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end1.parquet')
     filmaciones = df_endpoint1['title'][df_endpoint1['release_month'] == mes]
     cantidad = filmaciones.count()
 
@@ -36,6 +37,7 @@ def cantidad_filmaciones_mes(mes:str):
 
 @app.get("/cantidad_filmaciones_dia/{dia}")
 def cantidad_filmaciones_dia(dia:str):
+    df_endpoint2 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end2.parquet')
     filmaciones = df_endpoint2['title'][df_endpoint2['release_day'] == dia]
     cantidad = filmaciones.count()
     return f'{cantidad} películas fueron estrenadas en el dia {dia}'
@@ -43,6 +45,7 @@ def cantidad_filmaciones_dia(dia:str):
 
 @app.get("/score_titulo/{titulo}")
 def score_titulo(titulo:str):
+    df_endpoint3 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end3.parquet')
     film = df_endpoint3[df_endpoint3['title'] == titulo]
     title = film['title'].values[0]
     year = film['release_year'].values[0]
@@ -52,6 +55,7 @@ def score_titulo(titulo:str):
 
 @app.get("/votos_titulo/{titulo}")
 def votos_titulo(titulo:str):
+    df_endpoint4 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end4.parquet')
     film = df_endpoint4[df_endpoint4['title'] == titulo]
     valoraciones = film['vote_count'].values[0]
     promedio = film['vote_average'].values[0]
@@ -65,6 +69,7 @@ def votos_titulo(titulo:str):
 
 @app.get("/get_actor/{nombre}")
 def get_actor(nombre:str):
+    df_endpoint5 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end5.parquet')
     peliculas = df_endpoint5[df_endpoint5['actors'].apply(lambda actors: nombre in actors)]
     pelis = peliculas['title'].tolist()
     retorno = peliculas['return'].tolist()
@@ -77,6 +82,7 @@ def get_actor(nombre:str):
 
 @app.get("/get_director/{nombre}")
 def get_director(nombre:str):
+    df_endpoint6 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end6.parquet')
     peliculas_director = df_endpoint6[df_endpoint6['director'] == nombre]
     
     if peliculas_director.empty:
