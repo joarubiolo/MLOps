@@ -11,12 +11,12 @@ app = FastAPI()
 
 #df = pd.read_csv(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\df.csv')
 
-df_endpoint1 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end1.parquet')
-df_endpoint2 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end2.parquet')
-df_endpoint3 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end3.parquet')
-df_endpoint4 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end4.parquet')
-df_endpoint5 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end5.parquet')
-df_endpoint6 = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\end6.parquet')
+df_endpoint1 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end1.parquet')
+df_endpoint2 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end2.parquet')
+df_endpoint3 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end3.parquet')
+df_endpoint4 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end4.parquet')
+df_endpoint5 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end5.parquet')
+df_endpoint6 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end6.parquet')
 df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\reco.parquet')
 #df_endpoint1 = df[['title', 'release_month']]
 #df_endpoint2 = df[['title', 'release_day']]
