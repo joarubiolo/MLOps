@@ -17,7 +17,7 @@ app = FastAPI()
 
 
 
-df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\reco.parquet')
+#df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\reco.parquet')
 #df_endpoint1 = df[['title', 'release_month']]
 #df_endpoint2 = df[['title', 'release_day']]
 #df_endpoint3 = df[['title','popularity','release_year']]
