@@ -6,3 +6,4 @@ nltk==3.9.1
 rake-nltk==1.0.6
 numpy==2.0.1
 pyarrow==14.0.2
+fastparquet==2024.5.0
