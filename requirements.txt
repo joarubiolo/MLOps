@@ -4,6 +4,6 @@ pandas==2.2.2
 scikit-learn==1.5.2
 nltk==3.9.1
 rake-nltk==1.0.6
-numpy==2.0.1
+numpy==1.24.4
 pyarrow==14.0.2
 fastparquet==2024.5.0
