@@ -100,8 +100,8 @@ def get_director(nombre:str):
     }
 
 
-df_reco = df[['title','overview','generos']]
-df_reco['overview'] = df_reco['overview'].fillna('')
+#df_reco = df[['title','overview','generos']]
+#df_reco['overview'] = df_reco['overview'].fillna('')
 
 
 @app.get("/recomendacion/{titulo}")
