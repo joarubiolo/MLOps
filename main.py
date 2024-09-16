@@ -5,6 +5,7 @@ from sklearn.neighbors import NearestNeighbors
 from rake_nltk import Rake
 import numpy as np
 import fastparquet
+nltk.download('stopwords')
 
 app = FastAPI()
 
