@@ -7,6 +7,7 @@ import numpy as np
 import fastparquet
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt_tab')
 
 app = FastAPI()
 
