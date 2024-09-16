@@ -4,27 +4,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
 from rake_nltk import Rake
 import numpy as np
-
-# Creacion de una aplicacion FastApi
+import fastparquet
 
 app = FastAPI()
-
-#df = pd.read_csv(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\df.csv')
-
-
-
-
-
-
-
-#df_reco = pd.read_parquet(r'C:\Users\rubio\Documents\SoyHenry\Proyecto_individual_2\reco.parquet')
-#df_endpoint1 = df[['title', 'release_month']]
-#df_endpoint2 = df[['title', 'release_day']]
-#df_endpoint3 = df[['title','popularity','release_year']]
-#df_endpoint4 = df[['title','release_year','vote_average','vote_count']]
-#df_endpoint5 = df[['title', 'actors', 'return']]
-#df_endpoint6 = df[['title', 'return','director','release_date','budget','revenue']]
-
 
 @app.get("/cantidad_filmaciones_mes/{mes}")
 def cantidad_filmaciones_mes(mes:str):
