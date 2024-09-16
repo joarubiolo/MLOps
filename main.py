@@ -5,7 +5,6 @@ from sklearn.neighbors import NearestNeighbors
 from rake_nltk import Rake
 import numpy as np
 import fastparquet
-import pyarrow
 
 app = FastAPI()
 
