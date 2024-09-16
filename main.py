@@ -51,7 +51,7 @@ def votos_titulo(titulo:str):
 
 @app.get("/get_actor/{nombre}")
 def get_actor(nombre:str):
-    df_endpoint5 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end5.parquet')
+    df_endpoint5 = pd.read_parquet('end5.parquet')
     peliculas = df_endpoint5[df_endpoint5['actors'].apply(lambda actors: nombre in actors)]
     pelis = peliculas['title'].tolist()
     retorno = peliculas['return'].tolist()
@@ -64,7 +64,7 @@ def get_actor(nombre:str):
 
 @app.get("/get_director/{nombre}")
 def get_director(nombre:str):
-    df_endpoint6 = pd.read_parquet(r'https://github.com/joarubiolo/MLOps/blob/master/end6.parquet')
+    df_endpoint6 = pd.read_parquet('end6.parquet')
     peliculas_director = df_endpoint6[df_endpoint6['director'] == nombre]
     
     if peliculas_director.empty:
