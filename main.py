@@ -84,6 +84,7 @@ def get_director(nombre:str):
 
 @app.get("/recomendacion/{titulo}")
 def recomendacion( titulo ):
+    df_reco = pd.read_parquet('reco.parquet')
     # Inicializar el extractor RAKE
     rake = Rake()
 
@@ -99,7 +100,7 @@ def recomendacion( titulo ):
     df_reco['keywords'] = df_reco['overview'].apply(extract_keywords)
 
     # Crear una nueva columna combinando 'title', 'overview' y 'keywords'
-    df_reco['combined_text'] = df_reco['title'] + ' ' + df_reco['keywords'] #'keywords'
+    df_reco['combined_text'] = df_reco['title'] + ' ' + df_reco['keywords']
 
     # Aplicar TfidfVectorizer sobre el texto combinado, limitando el número de características
     vect = TfidfVectorizer(stop_words='english', max_features=5000)  # Ajustar 'max_features' según tu memoria
