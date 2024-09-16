@@ -6,3 +6,4 @@ nltk
 rake-nltk
 numpy
 fastparquet
+pyarrow
