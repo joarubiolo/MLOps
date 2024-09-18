@@ -5,6 +5,9 @@ from sklearn.neighbors import NearestNeighbors
 from rake_nltk import Rake
 import numpy as np
 import fastparquet
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt_tab')
 
 app = FastAPI()
 
@@ -81,9 +84,10 @@ def get_director(nombre:str):
         'informacion_peliculas': informacion_peliculas
     }
 
-
+'''
 @app.get("/recomendacion/{titulo}")
 def recomendacion( titulo ):
+    df_reco = pd.read_parquet('reco.parquet')
     # Inicializar el extractor RAKE
     rake = Rake()
 
@@ -99,7 +103,7 @@ def recomendacion( titulo ):
     df_reco['keywords'] = df_reco['overview'].apply(extract_keywords)
 
     # Crear una nueva columna combinando 'title', 'overview' y 'keywords'
-    df_reco['combined_text'] = df_reco['title'] + ' ' + df_reco['keywords'] #'keywords'
+    df_reco['combined_text'] = df_reco['title'] + ' ' + df_reco['keywords']
 
     # Aplicar TfidfVectorizer sobre el texto combinado, limitando el número de características
     vect = TfidfVectorizer(stop_words='english', max_features=5000)  # Ajustar 'max_features' según tu memoria
@@ -125,6 +129,51 @@ def recomendacion( titulo ):
         similar_titles = df_reco['title'].iloc[indices[0][1:]]  # Excluir la misma película
         
         return similar_titles.tolist()
+'''
+
+@app.get("/recomendacion/{titulo}")
+def recomendacion(titulo: str):
+    df_reco = pd.read_parquet('reco.parquet')
+    
+    # Inicializar el extractor RAKE
+    rake = Rake()
+
+    # Función para extraer palabras clave
+    def extract_keywords(text):
+        if isinstance(text, str):
+            rake.extract_keywords_from_text(text)
+            return ' '.join(rake.get_ranked_phrases())
+        else:
+            return ""
+
+    # Aplicar la extracción de palabras clave a la columna 'overview'
+    df_reco['keywords'] = df_reco['overview'].apply(extract_keywords)
+
+    # Crear una nueva columna combinando 'title', 'overview' y 'keywords'
+    df_reco['combined_text'] = df_reco['title'] + ' ' + df_reco['keywords']
+
+    # Aplicar TfidfVectorizer sobre el texto combinado, limitando el número de características
+    vect = TfidfVectorizer(stop_words='english', max_features=5000)  # Ajustar 'max_features' según tu memoria
+    vect_matrix = vect.fit_transform(df_reco['combined_text'])
+
+    # Usar NearestNeighbors para encontrar las películas más similares
+    nn_model = NearestNeighbors(metric='cosine', algorithm='brute', n_neighbors=6)
+    nn_model.fit(vect_matrix)
+
+    # Verificar si el título está en el DataFrame
+    if titulo not in df_reco['title'].values:
+        return {"error": f"No se encontró la película: {titulo}"}
+
+    # Obtener el índice de la película en cuestión
+    idx = df_reco[df_reco['title'] == titulo].index[0]
+
+    # Encontrar los índices de las películas más cercanas
+    distances, indices = nn_model.kneighbors(vect_matrix[idx], n_neighbors=6)
+
+    # Obtener los títulos de las películas más similares (excluir la misma película)
+    similar_titles = df_reco['title'].iloc[indices[0][1:]].tolist()
+    
+    return {"recomendaciones": similar_titles}
 
 if __name__ == "__main__":
     import uvicorn
